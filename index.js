@@ -7,18 +7,17 @@ const app = express()
 app.use(express.json())
 app.post("/verificar-admin", ((req, res) => {
   const { email } = req.body
-  res.send({Message:"Roiaaa"})
-  // model
-  //   .find({
-  //     email: email.toLowerCase()
-  //   })
-  //   .then(doc => {
-  //     if (doc.length > 0) res.send(doc)
-  //     else { res.send({ Message: "User not Found." }) }
-  //   })
-  //   .catch(err => {
-  //     res.send(err)
-  //   })
+  model
+    .find({
+      email: email.toLowerCase()
+    })
+    .then(doc => {
+      if (doc.length > 0) res.send(doc)
+      else { res.send({ Message: "User not Found." }) }
+    })
+    .catch(err => {
+      res.send(err)
+    })
 
 }))
 
