@@ -61,4 +61,4 @@ app.get("/",((req,res)=>{
 }))
 
 console.log(db)
-app.listen({ port: 3000 }, () => { console.log("Running AT 3000 port") })
+app.listen(process.env.PORT || 3000, () => { console.log("Running AT 3000 port") })
