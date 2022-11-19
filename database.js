@@ -7,7 +7,8 @@ class Database {
   }
   
 _connect() {
-     mongoose.connect("mongodb+srv://dnascimento:iHkOJVA2dzI80xfg@cluster0.ocmkior.mongodb.net/?retryWrites=true&w=majority")
+  const uri = process.env.MONGODB_URI;
+     mongoose.connect(uri)
        .then(() => {
          console.log('Database connection successful')
        })
