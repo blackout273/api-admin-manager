@@ -54,5 +54,10 @@ app.delete("/delete-admin", ((req, res) => {
     res.send(err)
   })
 }))
+
+app.get("/",((req,res)=>{
+  res.send("Bem vindo a API ADMIN MANAGER!")
+}))
+
 console.log(db)
 app.listen({ port: 3000 }, () => { console.log("Running AT 3000 port") })
