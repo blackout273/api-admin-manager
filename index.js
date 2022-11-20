@@ -25,6 +25,7 @@ app.post("/verificar-admin", (req, res) => {
 app.post("/criar-admin", (req, res) => {
   const { email } = req.body;
   const { senha } = req.body;
+  const { usuario } = req.body;
 
   model
     .find({
@@ -37,7 +38,8 @@ app.post("/criar-admin", (req, res) => {
 
         let msg = new model({
           email: email.toLowerCase(),
-          senha: response.data
+          senha: response.data,
+          usuario: usuario
         });
 
         msg
@@ -58,7 +60,7 @@ app.post("/login-admin", (req, res) => {
       email: email.toLowerCase(),
     })
     .then((doc) => {
-      if (doc.length > 0) res.send({senha:doc[0].senha});
+      if (doc.length > 0) res.send(doc[0]);
       else res.send({ Message: "User not found." });
     })
     .catch((err) => {
