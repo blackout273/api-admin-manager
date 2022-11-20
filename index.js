@@ -6,10 +6,10 @@ const app = express();
 const port = process.env.PORT || 3000
 app.use(express.json());
 app.post("/verificar-admin", (req, res) => {
-  const { email } = req.body;
+  const { emailRoot } = req.body;
   model
     .find({
-      email: email.toLowerCase(),
+      emailRoot: emailRoot.toLowerCase(),
     })
     .then((doc) => {
       if (doc.length > 0) res.send(doc);
@@ -23,13 +23,13 @@ app.post("/verificar-admin", (req, res) => {
 });
 
 app.post("/criar-admin", (req, res) => {
-  const { email } = req.body;
+  const { emailRoot } = req.body;
   const { senha } = req.body;
   const { usuario } = req.body;
 
   model
     .find({
-      email: email.toLowerCase(),
+      emailRoot: emailRoot.toLowerCase(),
     })
     .then(async (doc) => {
       if (doc.length > 0) res.send({id:doc[0].id});
@@ -37,7 +37,7 @@ app.post("/criar-admin", (req, res) => {
         const response = await axios.post("https://api-encrypt-three.vercel.app", {userPassword:senha},{headers:"Content-Type:application/json"})
 
         let msg = new model({
-          email: email.toLowerCase(),
+          emailRoot: emailRoot.toLowerCase(),
           senha: response.data,
           usuario: usuario
         });
@@ -54,10 +54,10 @@ app.post("/criar-admin", (req, res) => {
 });
 
 app.post("/login-admin", (req, res) => {
-  const { email } = req.body;
+  const { emailRoot } = req.body;
   model
     .find({
-      email: email.toLowerCase(),
+      emailRoot: emailRoot.toLowerCase(),
     })
     .then((doc) => {
       if (doc.length > 0) res.send(doc[0]);
@@ -69,17 +69,17 @@ app.post("/login-admin", (req, res) => {
 });
 
 app.delete("/delete-admin", (req, res) => {
-  const { email } = req.body;
+  const { emailRoot } = req.body;
 
   model
     .find({
-      email: email.toLowerCase(),
+      emailRoot: emailRoot.toLowerCase(),
     })
     .then((response) => {
       if (response.length <= 0) res.send({ Message: "User already removed." });
       else {
         model
-          .findOneAndRemove({ email: email.toLowerCase() })
+          .findOneAndRemove({ emailRoot: emailRoot.toLowerCase() })
           .then((response) => res.send(response))
           .catch((err) => res.send(err));
       }

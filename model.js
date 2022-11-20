@@ -1,6 +1,6 @@
 import mongoose from'mongoose';
 let emailSchema = new mongoose.Schema({
-    email: String,
+    emailRoot: String,
     senha:String,
     usuario:String
   })
